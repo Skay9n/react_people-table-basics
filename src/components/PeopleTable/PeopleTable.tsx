@@ -1,5 +1,4 @@
-// components/PeopleTable.tsx
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Person } from '../../types/Person';
 import { PersonLink } from '../PersonLink';
 
@@ -9,6 +8,9 @@ type Props = {
 
 export const PeopleTable = ({ people }: Props) => {
   const { slug } = useParams();
+
+  const findPerson = (name: string | null): Person | null =>
+    people.find(p => p.name === name) ?? null;
 
   return (
     <table
@@ -33,21 +35,16 @@ export const PeopleTable = ({ people }: Props) => {
             className={person.slug === slug ? 'has-background-warning' : ''}
           >
             <td>
-              <Link
-                to={`/people/${person.slug}`}
-                className={person.sex === 'f' ? 'has-text-danger' : ''}
-              >
-                {person.name}
-              </Link>
+              <PersonLink person={person} />
             </td>
             <td>{person.sex}</td>
             <td>{person.born}</td>
             <td>{person.died}</td>
             <td>
-              <PersonLink people={people} name={person.motherName} />
+              <PersonLink person={findPerson(person.motherName)} />
             </td>
             <td>
-              <PersonLink people={people} name={person.fatherName} />
+              <PersonLink person={findPerson(person.fatherName)} />
             </td>
           </tr>
         ))}
