@@ -35,16 +35,22 @@ export const PeopleTable = ({ people }: Props) => {
             className={person.slug === slug ? 'has-background-warning' : ''}
           >
             <td>
-              <PersonLink person={person} />
+              <PersonLink person={person} name={person.name} />
             </td>
             <td>{person.sex}</td>
             <td>{person.born}</td>
             <td>{person.died}</td>
             <td>
-              <PersonLink person={findPerson(person.motherName)} />
+              <PersonLink
+                person={findPerson(person.motherName)}
+                name={person.motherName}
+              />
             </td>
             <td>
-              <PersonLink person={findPerson(person.fatherName)} />
+              <PersonLink
+                person={findPerson(person.fatherName)}
+                name={person.fatherName}
+              />
             </td>
           </tr>
         ))}

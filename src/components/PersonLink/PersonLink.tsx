@@ -3,11 +3,16 @@ import { Person } from '../../types/Person';
 
 type Props = {
   person: Person | null;
+  name?: string | null;
 };
 
-export const PersonLink = ({ person }: Props) => {
-  if (!person) {
+export const PersonLink = ({ person, name }: Props) => {
+  if (!name) {
     return <span>-</span>;
+  }
+
+  if (!person) {
+    return <span>{name}</span>;
   }
 
   return (
